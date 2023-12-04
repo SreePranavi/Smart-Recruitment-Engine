@@ -40,6 +40,10 @@ def transcript_summary():
     summary = summarization_engine.summarize(transcript)
     return summary
 
+def question_generator():
+    questions = question_engine.generate_questions(context)
+    return questions
+
 st.set_page_config(
     page_title="Smart Recruitment Engine",
     layout = "wide"
@@ -69,8 +73,7 @@ with st.form("SRE Form"):
         st.audio(wav_audio_data, format='audio/wav')
 
         context = transcript_summary()
-
-        questions = question_engine.question_generator(context)
+        questions = question_generator()
 
     submitted = st.form_submit_button("Submit")
 
