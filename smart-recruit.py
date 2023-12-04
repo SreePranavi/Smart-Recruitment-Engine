@@ -55,7 +55,7 @@ st.set_page_config(page_title="Smart Recruitment Engine", layout="wide")
 st.title("""Smart Recruitment Engine""")
 
 with st.expander("Help"):
-    st.write("""Help meeeeeee""")
+    st.write("""User manual""")
 
 cossim_engine = setup_cossim_engine()
 conversion_engine = setup_conversion_engine()
