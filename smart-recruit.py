@@ -75,6 +75,8 @@ with st.form("SRE Form"):
         context = transcript_summary()
         questions = question_generator()
 
+        st.write(questions)
+
     submitted = st.form_submit_button("Submit")
 
 
