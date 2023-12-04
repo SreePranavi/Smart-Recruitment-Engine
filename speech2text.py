@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from transformers import BartForConditionalGeneration, BartTokenizer
 
+
 class Speech2TextEngine:
 
     def __init__(self, audio_file):
