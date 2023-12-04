@@ -50,12 +50,22 @@ def question_generator():
     return questions
 
 
-st.set_page_config(page_title="Smart Recruitment Engine", layout="wide")
+st.set_page_config(page_title="Smart Recruitment Engine", layout="wide", page_icon="⚡")
 
-st.title("""Smart Recruitment Engine""")
+st.title("""⚡ Smart Recruitment Engine""")
 
 with st.expander("Help"):
-    st.write("""User manual""")
+    st.write("""AI powered recruitments!
+    
+
+    I need help.
+
+    Cool, all you have to do is,
+    - Record the conversation between you (interviewer) and the candidate
+    - Wait for the machine to generate adaptive questions
+    - Once the interview is done, hit submit
+    - Voila! You can now see what roles seem to be the best fit for the candidate 😊
+    """)
 
 cossim_engine = setup_cossim_engine()
 conversion_engine = setup_conversion_engine()
@@ -87,10 +97,10 @@ if submitted:
 
     with st.container():
         st.header("Suitable Roles")
-        st.subheader(
+        st.text(
             "The suggested roles for the candidate with ID "
             + str(input_candidate_id)
-            + " in descending order of match score are : "
+            + " in the order of best scores :"
         )
         roles_report_pd = pd.DataFrame(
             data=roles_report, columns=("Roles", "Similarity Score")
