@@ -44,3 +44,4 @@ class TextSummarizationEngine:
         # Decode and Print Questions
         summary = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
         print("Generated Summary:", summary)
+        return summary
