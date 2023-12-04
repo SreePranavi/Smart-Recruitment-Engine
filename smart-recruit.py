@@ -8,24 +8,31 @@ import pandas as pd
 
 from cosine_similarity import CosineSimilarityEngine
 from speech2text import Speech2TextEngine,TextSummarizationEngine
+from question_generator import QuestionGeneratorEngine
 
 
 @st.cache_resource(ttl=timedelta(days=1))
 def setup_cossim_engine():
-    cosine_similarity_engine = CosineSimilarityEngine()
-    cosine_similarity_engine.train_model()
-    return cosine_similarity_engine
+    engine = CosineSimilarityEngine()
+    engine.train_model()
+    return engine
 
 @st.cache_resource(ttl=timedelta(days=1))
 def setup_conversion_engine():
-    conversion_engine = Speech2TextEngine()
-    return conversion_engine
+    engine = Speech2TextEngine()
+    return engine
 
 @st.cache_resource(ttl=timedelta(days=1))
 def setup_summarization_engine():
-    summarization_engine = TextSummarizationEngine()
-    summarization_engine.load_model()
-    return summarization_engine
+    engine = TextSummarizationEngine()
+    engine.load_model()
+    return engine
+
+@st.cache_resource(ttl=timedelta(days=1))
+def setup_question_engine():
+    engine = QuestionGeneratorEngine()
+    engine.load_model()
+    return engine
 
 @st.cache_data(ttl=timedelta(days=1))
 def transcript_summary():
@@ -46,6 +53,7 @@ with st.expander("Help"):
 cossim_engine = setup_cossim_engine()
 conversion_engine = setup_conversion_engine()
 summarization_engine = setup_summarization_engine()
+question_engine = setup_question_engine()
 
 submitted = False
 
@@ -60,7 +68,9 @@ with st.form("SRE Form"):
     if wav_audio_data is not None:
         st.audio(wav_audio_data, format='audio/wav')
 
-        transcript_summary()
+        context = transcript_summary()
+
+        questions = question_engine.question_generator(context)
 
     submitted = st.form_submit_button("Submit")
 
